@@ -1,0 +1,133 @@
+body{
+    font-family: 'Inter', Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #ccfccc
+}
+
+.main-container{
+    width: 92%;
+    max-width: 980px;
+    text-align: center;
+    background: linear-gradient(180deg, #ffffff, #f8fff8);
+    padding: 34px;
+    border-radius: 18px;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.6);
+    border: 6px solid rgba(34,139,34,0.08);
+}
+
+.header h1{
+    font-family: 'Luckiest Guy', 'Inter', sans-serif;
+    font-size: 46px;
+    color: #1ea34a;
+    margin: 6px 0 4px 0;
+    text-shadow: 0 6px 12px rgba(0,0,0,0.12), 0 2px 0 rgba(255,255,255,0.3) inset;
+    letter-spacing: 1px;
+}
+
+.header h3{
+    font-size: 16px;
+    color: #2b2b2b;
+    margin: 0 0 18px 0;
+    font-weight: 500;
+}
+
+.game-description p{
+    line-height: 1.6;
+    font-size: 16px;
+    color: #333;
+    max-width: 860px;
+    margin: 0 auto 18px auto;
+}
+
+.game-rules{
+    margin: 18px auto 0 auto;
+    text-align: left;
+    max-width: 860px;
+}
+
+.game-rules h2{
+    color: #1ea34a;
+    margin: 0 0 12px 0;
+    font-size: 22px;
+}
+
+/* styled ordered list with numbered badges */
+.game-rules ol{
+    list-style: none;
+    counter-reset: rules;
+    padding-left: 0;
+    margin: 0;
+}
+
+.game-rules ol li{
+    counter-increment: rules;
+    position: relative;
+    margin: 10px 0;
+    padding: 12px 16px 12px 64px;
+    border-radius: 10px;
+    background: linear-gradient(180deg, rgba(34,139,34,0.03), rgba(34,139,34,0.01));
+    box-shadow: 0 3px 8px rgba(0,0,0,0.03);
+    color: #163a16;
+}
+
+.game-rules ol li::before{
+    content: counter(rules);
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(180deg,#16a34a,#059669);
+    color: #fff;
+    font-weight: 700;
+    box-shadow: 0 4px 10px rgba(5,102,105,0.12);
+}
+
+.start-button-container{
+    display: flex;
+    justify-content: center;
+    margin-top: 28px;
+}
+
+/* anchor uses class start-btn in HTML */
+.start-btn{
+    display: inline-block;
+    background: linear-gradient(180deg,#34d399,#10b981);
+    color: #ffffff;
+    padding: 16px 40px;
+    font-size: 20px;
+    border-radius: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 700;
+    box-shadow: 0 12px 30px rgba(16,185,129,0.28), 0 2px 6px rgba(0,0,0,0.12);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.start-btn:hover{
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(16,185,129,0.28), 0 4px 10px rgba(0,0,0,0.14);
+}
+
+/* subtle pulse to draw attention */
+.start-btn:after{
+    content: '';
+    position: absolute;
+    pointer-events: none;
+}
+
+@media (max-width: 640px){
+    .header h1{ font-size: 30px; }
+    .start-btn{ padding: 12px 26px; font-size: 16px; }
+    .game-rules ol li{ padding-left: 54px; }
+}

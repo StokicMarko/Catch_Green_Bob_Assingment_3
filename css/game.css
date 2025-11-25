@@ -1,0 +1,32 @@
+* {
+    overflow: hidden;
+}
+.main-game-container{
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.start-btn {
+    height: 2rem;
+}
+
+img {
+    height: 5rem;
+    visibility: hidden;
+    position: absolute;
+}
+
+.exit-container {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    border: solid 2px black;
+    border-radius: 10rem;
+    padding: 1rem;
+}
+:hover.exit-container {
+    background-color: lightgray;
+    cursor: pointer;
+}
