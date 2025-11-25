@@ -1,10 +1,14 @@
 const stickMan = document.getElementById("stickMan");
+const startBtn = document.getElementById("startBtn");
 
 function startGame() {
-  const startBtn = document.getElementById("startBtn");
-  startBtn.remove();
-
+  startBtn.style.visibility = "hidden";
   stickMan.style.visibility = "visible";
+}
+
+function closeGame() {
+  stickMan.style.visibility = "hidden";
+  startBtn.style.visibility = "visible";
 }
 
 function changePosition() {
