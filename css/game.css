@@ -39,3 +39,11 @@ img {
 :hover.exit-container {
     cursor: pointer;
 }
+
+.mine {
+  width: 40px;
+  height: 40px;
+  background-image: url('../images/mine.png');
+  background-size: cover;
+  position: absolute;
+}

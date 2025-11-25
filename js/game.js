@@ -1,6 +1,9 @@
 const stickMan = document.getElementById("stickMan");
 const startBtn = document.getElementById("startBtn");
 
+const minesContainer = document.getElementById("minesContainer");
+let mines = [];
+
 var today = new Date();
 var dd = String(today.getDate()).padStart(2, "0");
 var mm = String(today.getMonth() + 1).padStart(2, "0");
@@ -18,12 +21,14 @@ let gameRunning = false;
 
 function startGame() {
   if (gameRunning) return;
-  
+
   gameRunning = true;
   gameData.score = 0;
 
   startBtn.style.visibility = "hidden";
   stickMan.style.visibility = "visible";
+
+  spawnMines(gameData.score);
 
   gameTimer = setTimeout(() => {
     closeGame();
@@ -37,21 +42,15 @@ function closeGame() {
 
   clearTimeout(gameTimer);
 
-  const gameDatas = localStorage.getItem("gameScore");
-  if (!gameDatas) {
-    gameScore = [gameData];
-    localStorage.setItem("gameScore", JSON.stringify(gameScore));
-  } 
-  else {
-    const parseGameDatas = JSON.parse(gameDatas);
-    parseGameDatas.push(gameData);
-    localStorage.setItem("gameScore", JSON.stringify(parseGameDatas));
-  }
+  saveGameScore();
 
   stickMan.style.visibility = "hidden";
   startBtn.style.visibility = "visible";
 
   gameData.score = 0;
+
+  minesContainer.innerHTML = "";
+  mines = [];
 }
 
 function changePosition() {
@@ -67,4 +66,66 @@ function changePosition() {
 
   stickMan.style.top = `${newRandomY}px`;
   stickMan.style.left = `${newRandomX}px`;
+
+  spawnMines(gameData.score);
 }
+
+function saveGameScore() {
+  const gameDatas = localStorage.getItem("gameScore");
+  if (!gameDatas) {
+    gameScore = [gameData];
+    localStorage.setItem("gameScore", JSON.stringify(gameScore));
+  } else {
+    const parseGameDatas = JSON.parse(gameDatas);
+    parseGameDatas.push(gameData);
+    localStorage.setItem("gameScore", JSON.stringify(parseGameDatas));
+  }
+}
+
+function spawnMines(amount) {
+  minesContainer.innerHTML = "";
+  mines = [];
+
+  const safetyRadius = 120;
+
+  const stickRect = stickMan.getBoundingClientRect();
+  const stickX = stickRect.left + stickRect.width / 2;
+  const stickY = stickRect.top + stickRect.height / 2;
+
+  const screenX = window.innerWidth;
+  const screenY = window.innerHeight;
+
+  for (let i = 0; i < amount; i++) {
+    let x, y, distanceOk = false;
+
+    while (!distanceOk) {
+      x = Math.floor(Math.random() * (screenX - 100));
+      y = Math.floor(Math.random() * (screenY - 100));
+
+      const dx = x - stickX;
+      const dy = y - stickY;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+
+      if (distance > safetyRadius) {
+        distanceOk = true;
+      }
+    }
+
+    const mine = document.createElement("div");
+    mine.classList.add("mine");
+
+    mine.style.left = `${x}px`;
+    mine.style.top = `${y}px`;
+
+    mine.addEventListener("mouseover", () => {
+      if (gameRunning) {
+        alert("💥 You moved your mouse over a mine! Game Over!");
+        closeGame();
+      }
+    });
+
+    minesContainer.appendChild(mine);
+    mines.push(mine);
+  }
+}
+
