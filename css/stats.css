@@ -1,40 +1,70 @@
-body {
-  font-family: Arial, sans-serif;
-  background: #f0f0f0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
+body{
+    font-family: 'Inter', Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #ccfccc
 }
 
 .score-container {
-  background: white;
-  padding: 40px;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  text-align: center;
-  width: 300px;
+    width: 92%;
+    max-width: 400px;
+    text-align: center;
+    background: linear-gradient(180deg, #ffffff, #f8fff8);
+    padding: 34px;
+    border-radius: 18px;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,0.6);
+    border: 6px solid rgba(34,139,34,0.08);
+}
+
+.score-container h1{
+    font-family: 'Luckiest Guy', 'Inter', sans-serif;
+    font-size: 46px;
+    color: #1ea34a;
+    margin: 6px 0 4px 0;
+    text-shadow: 0 6px 12px rgba(0,0,0,0.12), 0 2px 0 rgba(255,255,255,0.3) inset;
+    letter-spacing: 1px;
 }
 
 .score-value {
   font-size: 48px;
   font-weight: bold;
   margin: 20px 0;
-  color: #333;
+  color: #1ea34a;
 }
 
-.button {
-  display: inline-block;
-  padding: 12px 20px;
-  background: #3498db;
-  color: white;
-  border-radius: 8px;
-  text-decoration: none;
-  font-size: 18px;
-  transition: background 0.2s ease-in-out;
+
+.play-again-button{
+    display: flex;
+    justify-content: center;
+    margin-top: 28px;
 }
 
-.button:hover {
-  background: #2980b9;
+.play-again-button{
+    display: inline-block;
+    background: linear-gradient(180deg,#34d399,#10b981);
+    color: #ffffff;
+    padding: 16px 40px;
+    font-size: 20px;
+    border-radius: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 700;
+    box-shadow: 0 12px 30px rgba(16,185,129,0.28), 0 2px 6px rgba(0,0,0,0.12);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
+
+.play-again-button:hover{
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(16,185,129,0.28), 0 4px 10px rgba(0,0,0,0.14);
+}
+
+.play-again-button:after{
+    content: '';
+    position: absolute;
+    pointer-events: none;
+}
+
