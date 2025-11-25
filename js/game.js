@@ -2,16 +2,16 @@ const stickMan = document.getElementById("stickMan");
 const startBtn = document.getElementById("startBtn");
 
 var today = new Date();
-var dd = String(today.getDate()).padStart(2, '0');
-var mm = String(today.getMonth() + 1).padStart(2, '0');
+var dd = String(today.getDate()).padStart(2, "0");
+var mm = String(today.getMonth() + 1).padStart(2, "0");
 var yyyy = today.getFullYear();
 
-today = dd + '-' + mm + '-' + yyyy;
+today = dd + "-" + mm + "-" + yyyy;
 
 const gameData = {
   date: today,
-  score: 0
-}
+  score: 0,
+};
 
 function startGame() {
   startBtn.style.visibility = "hidden";
@@ -19,8 +19,23 @@ function startGame() {
 }
 
 function closeGame() {
+  const gameDatas = localStorage.getItem("gameScore");
+  if (!gameDatas) {
+    gameScore = [gameData]
+    localStorage.setItem("gameScore", JSON.stringify(gameScore));
+  } 
+  else 
+  {
+    const parseGameDatas = JSON.parse(gameDatas);
+    
+    parseGameDatas.push(gameData);
+    localStorage.setItem("gameScore", JSON.stringify(parseGameDatas));
+  }
+
   stickMan.style.visibility = "hidden";
   startBtn.style.visibility = "visible";
+
+  gameData.score = 0;
 }
 
 function changePosition() {
@@ -37,8 +52,4 @@ function changePosition() {
 
   stickMan.style.top = `${newRandomY}px`;
   stickMan.style.left = `${newRandomX}px`;
-
-  console.log(screenX, screenY, newRandomX, newRandomY);
-  console.log(gameData);
-  
 }
