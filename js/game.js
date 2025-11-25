@@ -13,21 +13,37 @@ const gameData = {
   score: 0,
 };
 
+let gameTimer = null;
+let gameRunning = false;
+
 function startGame() {
+  if (gameRunning) return;
+  
+  gameRunning = true;
+  gameData.score = 0;
+
   startBtn.style.visibility = "hidden";
   stickMan.style.visibility = "visible";
+
+  gameTimer = setTimeout(() => {
+    closeGame();
+  }, 30000);
 }
 
 function closeGame() {
+  if (!gameRunning) return;
+
+  gameRunning = false;
+
+  clearTimeout(gameTimer);
+
   const gameDatas = localStorage.getItem("gameScore");
   if (!gameDatas) {
-    gameScore = [gameData]
+    gameScore = [gameData];
     localStorage.setItem("gameScore", JSON.stringify(gameScore));
   } 
-  else 
-  {
+  else {
     const parseGameDatas = JSON.parse(gameDatas);
-    
     parseGameDatas.push(gameData);
     localStorage.setItem("gameScore", JSON.stringify(parseGameDatas));
   }
@@ -39,16 +55,15 @@ function closeGame() {
 }
 
 function changePosition() {
+  if (!gameRunning) return;
+
   gameData.score++;
 
   const screenX = window.innerWidth;
   const screenY = window.innerHeight;
 
-  const newRandomX = Math.floor(Math.random() * (screenX - 200 + 1)) + 40;
-  if (newRandomX < 0) newRandomX = newRandomX + 200;
-
-  const newRandomY = Math.floor(Math.random() * (screenY - 100 + 1)) + 40;
-  if (newRandomY < 0) newRandomY = newRandomY + 200;
+  const newRandomX = Math.floor(Math.random() * (screenX - 200)) + 40;
+  const newRandomY = Math.floor(Math.random() * (screenY - 100)) + 40;
 
   stickMan.style.top = `${newRandomY}px`;
   stickMan.style.left = `${newRandomX}px`;
