@@ -22,11 +22,20 @@ img {
     position: absolute;
     top: 2rem;
     right: 2rem;
-    border: solid 2px black;
-    border-radius: 10rem;
-    padding: 1rem;
 }
 :hover.exit-container {
-    background-color: lightgray;
+    cursor: pointer;
+}
+
+.home-container a {
+    color: black;
+}
+
+.home-container {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+}
+:hover.exit-container {
     cursor: pointer;
 }
