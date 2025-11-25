@@ -36,6 +36,10 @@ function closeGame() {
   startBtn.style.visibility = "visible";
 
   gameData.score = 0;
+
+  const data= JSON.parse(localStorage.getItem("gameScore"));
+  const lastGame= data[data.length-1];
+  document.getElementById("count").innerHTML=lastGame.score;
 }
 
 function changePosition() {

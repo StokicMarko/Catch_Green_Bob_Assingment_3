@@ -1,6 +1,23 @@
 * {
     overflow: hidden;
 }
+.score-container{
+display: flex;
+justify-content: center;
+font-size: 18px;
+}
+.child-container{
+    text-align: center;
+    width:120px;
+    font-family: Arial, Helvetica, sans-serif;
+    border:2px solid blue;
+
+}
+.child-container:hover{
+    background-color: bisque;
+    cursor: pointer;
+}
+
 .main-game-container{
     display: flex;
     height: 100vh;
@@ -33,8 +50,13 @@ img {
 
 .home-container {
     position: absolute;
-    top: 2rem;
+    top:0.5rem;
     left: 2rem;
+}
+.home-container:hover{
+    background-color: antiquewhite;
+    border-radius: 2px solid black;
+    cursor: pointer;
 }
 :hover.exit-container {
     cursor: pointer;
