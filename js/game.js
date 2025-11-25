@@ -1,6 +1,18 @@
 const stickMan = document.getElementById("stickMan");
 const startBtn = document.getElementById("startBtn");
 
+var today = new Date();
+var dd = String(today.getDate()).padStart(2, '0');
+var mm = String(today.getMonth() + 1).padStart(2, '0');
+var yyyy = today.getFullYear();
+
+today = dd + '-' + mm + '-' + yyyy;
+
+const gameData = {
+  date: today,
+  score: 0
+}
+
 function startGame() {
   startBtn.style.visibility = "hidden";
   stickMan.style.visibility = "visible";
@@ -12,6 +24,8 @@ function closeGame() {
 }
 
 function changePosition() {
+  gameData.score++;
+
   const screenX = window.innerWidth;
   const screenY = window.innerHeight;
 
@@ -25,4 +39,6 @@ function changePosition() {
   stickMan.style.left = `${newRandomX}px`;
 
   console.log(screenX, screenY, newRandomX, newRandomY);
+  console.log(gameData);
+  
 }
