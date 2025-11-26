@@ -1,41 +1,81 @@
 * {
-    overflow: hidden;
+  overflow: hidden;
 }
-.main-game-container{
-    display: flex;
-    height: 100vh;
-    align-items: center;
-    justify-content: center;
+body {
+  background: #ccfccc;
+}
+.score-container {
+  display: flex;
+  justify-content: center;
+  font-size: 18px;
+}
+.child-container {
+  text-align: center;
+  width: 120px;
+  font-family: Arial, Helvetica, sans-serif;
+  border: 2px solid #34d399;
+}
+
+.main-game-container {
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
 }
 
 .start-btn {
-    height: 2rem;
+  background: linear-gradient(180deg, #34d399, #10b981);
+  color: #ffffff;
+  padding: 16px 40px;
+  font-size: 20px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-weight: 700;
+  box-shadow: 0 12px 30px rgba(16, 185, 129, 0.28),
+    0 2px 6px rgba(0, 0, 0, 0.12);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
-
+.start-btn:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(16, 185, 129, 0.28),
+    0 4px 10px rgba(0, 0, 0, 0.14);
+}
 img {
-    height: 5rem;
-    visibility: hidden;
-    position: absolute;
+  height: 5rem;
+  visibility: hidden;
+  position: absolute;
 }
 
 .exit-container {
-    position: absolute;
-    top: 2rem;
-    right: 2rem;
+  visibility: hidden;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
 }
-:hover.exit-container {
-    cursor: pointer;
+:hover.exit-child {
+  cursor: pointer;
 }
 
 .home-container a {
-    color: black;
+  color: black;
 }
 
 .home-container {
-    position: absolute;
-    top: 2rem;
-    left: 2rem;
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
 }
-:hover.exit-container {
-    cursor: pointer;
+.home-container:hover {
+  cursor: pointer;
+}
+:hover.exit-child {
+  cursor: pointer;
+}
+
+.mine {
+  width: 60px;
+  height: 60px;
+  background-image: url("../images/mine.png");
+  background-size: cover;
+  position: absolute;
 }
