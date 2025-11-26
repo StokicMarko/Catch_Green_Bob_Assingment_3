@@ -13,11 +13,7 @@ body {
   text-align: center;
   width: 120px;
   font-family: Arial, Helvetica, sans-serif;
-  border: 2px solid blue;
-}
-.child-container:hover {
-  background-color: bisque;
-  cursor: pointer;
+  border: 2px solid #34d399;
 }
 
 .main-game-container {
@@ -51,9 +47,10 @@ img {
 }
 
 .exit-container {
-  display: flex;
   visibility: hidden;
-  justify-content: flex-end;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
 }
 :hover.exit-child {
   cursor: pointer;
@@ -65,17 +62,14 @@ img {
 
 .home-container {
   position: absolute;
-  top: 0.5rem;
-  left: 2rem;
+  top: 1rem;
+  left: 1rem;
 }
 .home-container:hover {
-  background-color: antiquewhite;
-  border-radius: 2px solid black;
   cursor: pointer;
 }
 :hover.exit-child {
   cursor: pointer;
-  background-color: bisque;
 }
 
 .mine {
