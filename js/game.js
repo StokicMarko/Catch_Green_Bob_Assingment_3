@@ -14,9 +14,10 @@ const gameData = {
   score: 0,
 };
 
+setLastScore();
+
 function startGame() {
   if (gameRunning) return;
-  document.body.classList.add("remove-bg");
 
   gameRunning = true;
   gameData.score = 0;
@@ -24,8 +25,12 @@ function startGame() {
   toggleUI(true);
   spawnMines(gameData.score);
 
-  gameTimer = setTimeout(closeGame, timerMillSec);
+  gameTimer = setTimeout(closeGameByTime, timerMillSec);
+}
 
+function closeGameByTime() {
+  alert("Time's up. You finish with a score of " + gameData.score)
+  closeGame();
 }
 
 function closeGame() {
@@ -36,10 +41,7 @@ function closeGame() {
 
   saveGameScore();
   resetGameUI();
-
-  const data= JSON.parse(localStorage.getItem("gameScore"));
-  const lastGame= data[data.length-1];
-  document.getElementById("count").innerHTML=lastGame.score;
+  setLastScore();
 }
 
 function changePosition() {
@@ -152,3 +154,8 @@ function getFormattedDate() {
   );
 }
 
+function setLastScore() {
+  const data = JSON.parse(localStorage.getItem("gameScore"));
+  const lastGame = data[data.length - 1];
+  document.getElementById("count").innerHTML = lastGame.score;
+}
