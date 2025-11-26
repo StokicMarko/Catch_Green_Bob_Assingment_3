@@ -1,41 +1,38 @@
 const stickMan = document.getElementById("stickMan");
 const startBtn = document.getElementById("startBtn");
+const minesContainer = document.getElementById("minesContainer");
 
-var today = new Date();
-var dd = String(today.getDate()).padStart(2, "0");
-var mm = String(today.getMonth() + 1).padStart(2, "0");
-var yyyy = today.getFullYear();
+const timerMillSec = 30000;
 
-today = dd + "-" + mm + "-" + yyyy;
+let mines = [];
+let gameTimer = null;
+let gameRunning = false;
 
 const gameData = {
-  date: today,
+  date: getFormattedDate(),
   score: 0,
 };
 
 function startGame() {
-  startBtn.style.visibility = "hidden";
-  stickMan.style.visibility = "visible";
+  if (gameRunning) return;
+
+  gameRunning = true;
+  gameData.score = 0;
+
+  toggleUI(true);
+  spawnMines(gameData.score);
+
+  gameTimer = setTimeout(closeGame, timerMillSec);
 }
 
 function closeGame() {
-  const gameDatas = localStorage.getItem("gameScore");
-  if (!gameDatas) {
-    gameScore = [gameData]
-    localStorage.setItem("gameScore", JSON.stringify(gameScore));
-  } 
-  else 
-  {
-    const parseGameDatas = JSON.parse(gameDatas);
-    
-    parseGameDatas.push(gameData);
-    localStorage.setItem("gameScore", JSON.stringify(parseGameDatas));
-  }
+  if (!gameRunning) return;
 
-  stickMan.style.visibility = "hidden";
-  startBtn.style.visibility = "visible";
+  gameRunning = false;
+  clearTimeout(gameTimer);
 
-  gameData.score = 0;
+  saveGameScore();
+  resetGameUI();
 
   const data= JSON.parse(localStorage.getItem("gameScore"));
   const lastGame= data[data.length-1];
@@ -43,17 +40,110 @@ function closeGame() {
 }
 
 function changePosition() {
+  if (!gameRunning) return;
+
   gameData.score++;
 
+  moveStickManRandomly();
+  spawnMines(gameData.score);
+}
+
+function spawnMines(count) {
+  clearMines();
+
+  const safetyRadius = 120;
+  const stickCenter = getStickManCenter();
+
+  for (let i = 0; i < count; i++) {
+    const { x, y } = getSafeRandomPosition(stickCenter, safetyRadius);
+    const mine = createMineElement(x, y);
+
+    minesContainer.appendChild(mine);
+    mines.push(mine);
+  }
+}
+
+function toggleUI(isGameActive) {
+  startBtn.style.visibility = isGameActive ? "hidden" : "visible";
+  stickMan.style.visibility = isGameActive ? "visible" : "hidden";
+}
+
+function resetGameUI() {
+  toggleUI(false);
+  gameData.score = 0;
+  clearMines();
+}
+
+function clearMines() {
+  minesContainer.innerHTML = "";
+  mines = [];
+}
+
+function moveStickManRandomly() {
   const screenX = window.innerWidth;
   const screenY = window.innerHeight;
 
-  const newRandomX = Math.floor(Math.random() * (screenX - 200 + 1)) + 40;
-  if (newRandomX < 0) newRandomX = newRandomX + 200;
+  const x = Math.floor(Math.random() * (screenX - 200)) + 40;
+  const y = Math.floor(Math.random() * (screenY - 100)) + 40;
 
-  const newRandomY = Math.floor(Math.random() * (screenY - 100 + 1)) + 40;
-  if (newRandomY < 0) newRandomY = newRandomY + 200;
+  stickMan.style.left = `${x}px`;
+  stickMan.style.top = `${y}px`;
+}
 
-  stickMan.style.top = `${newRandomY}px`;
-  stickMan.style.left = `${newRandomX}px`;
+function getStickManCenter() {
+  const rect = stickMan.getBoundingClientRect();
+  return {
+    x: rect.left + rect.width / 2,
+    y: rect.top + rect.height / 2,
+  };
+}
+
+function createMineElement(x, y) {
+  const mine = document.createElement("div");
+  mine.classList.add("mine");
+
+  mine.style.left = `${x}px`;
+  mine.style.top = `${y}px`;
+
+  mine.addEventListener("mouseover", () => {
+    if (gameRunning) {
+      alert("💥 You moved your mouse over a mine! Game Over!");
+      closeGame();
+    }
+  });
+
+  return mine;
+}
+
+function getSafeRandomPosition(avoidPoint, minDistance) {
+  const screenX = window.innerWidth;
+  const screenY = window.innerHeight;
+
+  let x, y, distance;
+
+  do {
+    x = Math.floor(Math.random() * (screenX - 100));
+    y = Math.floor(Math.random() * (screenY - 100));
+
+    distance = Math.hypot(x - avoidPoint.x, y - avoidPoint.y);
+  } while (distance < minDistance);
+
+  return { x, y };
+}
+
+function saveGameScore() {
+  const scores = JSON.parse(localStorage.getItem("gameScore")) || [];
+  scores.push(gameData);
+  localStorage.setItem("gameScore", JSON.stringify(scores));
+}
+
+function getFormattedDate() {
+  const d = new Date();
+  return (
+    String(d.getDate()).padStart(2, "0") +
+    "-" +
+    String(d.getMonth() + 1).padStart(2, "0") +
+    "-" +
+    d.getFullYear()
+  );
 }
