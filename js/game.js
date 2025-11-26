@@ -42,6 +42,8 @@ function closeGame() {
   saveGameScore();
   resetGameUI();
   setLastScore();
+
+  window.location.href = "stats.html";
 }
 
 function changePosition() {
