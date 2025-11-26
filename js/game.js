@@ -23,7 +23,6 @@ function startGame() {
 
   toggleUI(true);
   spawnMines(gameData.score);
-  checkBackground(true);
 
   gameTimer = setTimeout(closeGame, timerMillSec);
 
@@ -34,7 +33,6 @@ function closeGame() {
 
   gameRunning = false;
   clearTimeout(gameTimer);
-  checkBackground(false);
 
   saveGameScore();
   resetGameUI();
@@ -152,14 +150,5 @@ function getFormattedDate() {
     "-" +
     d.getFullYear()
   );
-}
-function checkBackground(isGameRunning) {
-    if (isGameRunning) {
-        // if running, then switch it to none
-        document.body.style.backgroundColor = "white";
-    } else {
-        // Game is not running → restore original color
-        document.body.style.backgroundColor = "#ccfccc";
-    }
 }
 
