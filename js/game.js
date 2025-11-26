@@ -1,6 +1,7 @@
 const stickMan = document.getElementById("stickMan");
 const startBtn = document.getElementById("startBtn");
 const minesContainer = document.getElementById("minesContainer");
+const exitBtn = document.getElementById("exitContainer");
 
 const timerMillSec = 30000;
 
@@ -64,6 +65,7 @@ function spawnMines(count) {
 }
 
 function toggleUI(isGameActive) {
+  exitBtn.style.visibility = isGameActive ? "visible" : "hidden";
   startBtn.style.visibility = isGameActive ? "hidden" : "visible";
   stickMan.style.visibility = isGameActive ? "visible" : "hidden";
 }

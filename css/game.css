@@ -36,9 +36,9 @@ img {
 }
 
 .exit-container {
-    position: absolute;
-    top: 2rem;
-    right: 2rem;
+    display: flex;
+    visibility: hidden;
+    justify-content: flex-end;
 }
 :hover.exit-container {
     cursor: pointer;
@@ -60,6 +60,7 @@ img {
 }
 :hover.exit-container {
     cursor: pointer;
+    background-color: bisque;
 }
 
 .mine {
