@@ -2,7 +2,9 @@ const stickMan = document.getElementById("stickMan");
 const startBtn = document.getElementById("startBtn");
 const minesContainer = document.getElementById("minesContainer");
 const exitBtn = document.getElementById("exitContainer");
-
+const timerBtn= document.querySelector(".parent-timer-container");
+let countdown = null;
+let timeLeft = 30;
 const timerMillSec = 30000;
 
 let mines = [];
@@ -24,6 +26,17 @@ function startGame() {
 
   toggleUI(true);
   spawnMines(gameData.score);
+   timeLeft = 30;
+  document.getElementById("timer").innerText = timeLeft;
+
+  countdown = setInterval(() => {
+    timeLeft--;
+    document.getElementById("timer").innerText = timeLeft;
+
+    if (timeLeft <= 0) {
+      clearInterval(countdown);
+    }
+  }, 1000);
 
   gameTimer = setTimeout(closeGameByTime, timerMillSec);
 }
@@ -71,9 +84,11 @@ function spawnMines(count) {
 }
 
 function toggleUI(isGameActive) {
+  timerBtn.style.visibility=isGameActive? "visible" :"hidden";
   exitBtn.style.visibility = isGameActive ? "visible" : "hidden";
   startBtn.style.visibility = isGameActive ? "hidden" : "visible";
   stickMan.style.visibility = isGameActive ? "visible" : "hidden";
+
 }
 
 function resetGameUI() {
